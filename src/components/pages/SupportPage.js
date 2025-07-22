@@ -314,11 +314,13 @@ const SupportPage = () => {
               For urgent technical problems affecting your server or bot functionality, our technical support team is here to help
             </p>
             <a
-              href="mailto:support@rsvp-manager.com?subject=Urgent: Technical Issue"
+              href="https://discord.gg/2EXEwfnXqG"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-full shadow-2xl transform hover:scale-105 transition duration-300 ease-in-out text-lg btn-premium"
             >
-              🔥 Contact Emergency Support
-        </a>
+              🔥 Join the Support Server
+            </a>
       </div>
     </div>
   </section>
