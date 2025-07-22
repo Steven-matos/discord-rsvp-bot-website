@@ -57,8 +57,8 @@ export const metadata = {
   images: [
     {
       url: "https://discord-rsvp-bot-website.vercel.app/logo.png",
-      width: 800,
-      height: 600,
+      width: 1024,
+      height: 1024,
       alt: "RSVP Manager Logo",
     },
   ],
@@ -72,8 +72,8 @@ export const metadata = {
     images: [
       {
         url: "https://discord-rsvp-bot-website.vercel.app/logo.png",
-        width: 800,
-        height: 600,
+        width: 1024,
+        height: 1024,
         alt: "RSVP Manager Logo",
       },
     ],
