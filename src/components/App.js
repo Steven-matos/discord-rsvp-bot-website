@@ -3,9 +3,7 @@
 import React, { useState } from 'react';
 import Layout from './Layout';
 import HomePage from './pages/HomePage';
-import FeaturesPage from './pages/FeaturesPage';
-import CommandsPage from './pages/CommandsPage';
-import BotAccountSetupPage from './pages/BotAccountSetupPage';
+import DocumentationPage from './pages/DocumentationPage';
 import SupportPage from './pages/SupportPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
@@ -23,12 +21,8 @@ const App = () => {
     switch (currentPage) {
       case 'home':
         return <HomePage />;
-      case 'features':
-        return <FeaturesPage />;
-      case 'commands':
-        return <CommandsPage />;
-      case 'bot-account-setup':
-        return <BotAccountSetupPage />;
+      case 'documentation':
+        return <DocumentationPage />;
       case 'support':
         return <SupportPage />;
       case 'privacy':
