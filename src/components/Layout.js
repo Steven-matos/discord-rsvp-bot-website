@@ -1,5 +1,6 @@
 import NavLink from './NavLink';
 import Image from 'next/image';
+import ScrollToTop from './ScrollToTop';
 
 const Layout = ({ children, currentPage, setCurrentPage, isMobileMenuOpen, toggleMobileMenu }) => {
   const BOT_INVITE_URL = "https://discord.com/oauth2/authorize?client_id=1388283299562262559&permissions=1144344644123728&integration_type=0&scope=bot";
@@ -199,6 +200,9 @@ const Layout = ({ children, currentPage, setCurrentPage, isMobileMenuOpen, toggl
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 };
