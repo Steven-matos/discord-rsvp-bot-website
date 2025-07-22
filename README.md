@@ -1,36 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# RSVP Manager Website
+
+A professional website for **RSVP Manager**, a powerful Discord bot that helps communities organize weekly events with easy RSVP tracking, automatic reminders, and mobile-friendly features.
+
+## About RSVP Manager
+
+RSVP Manager is designed to streamline event organization for Discord communities, whether you're running gaming groups, clubs, or any community that meets regularly. The bot provides:
+
+- 📅 **Weekly Planning** - Set up recurring events for each day of the week
+- 🎯 **Easy RSVPs** - One-click responses with Yes, No, Maybe, or Mobile options
+- ⏰ **Smart Reminders** - Configurable automatic reminders before events
+- 📱 **Mobile Friendly** - Special RSVP option for mobile users
+- 👥 **Attendance Tracking** - Clear visibility of who's coming to each event
+- 🔄 **Automatic Posts** - Daily event announcements posted automatically
+
+## Website Features
+
+This Next.js website provides:
+
+- **Homepage** - Bot overview and key features
+- **Features Page** - Detailed feature descriptions
+- **Commands Page** - Complete bot command documentation
+- **Bot Setup Guide** - Step-by-step configuration instructions
+- **Support** - Troubleshooting and help resources
+- **Legal Pages** - Privacy Policy and Terms of Service
+
+## Technology Stack
+
+- **Framework**: Next.js 15.4.2 with App Router
+- **Styling**: Tailwind CSS 4
+- **Components**: Modular React components
+- **Deployment**: Optimized for Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <your-repository-url>
+cd discord-rsvp-bot-website
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── layout.js          # Root layout
+│   ├── page.js           # Main page entry point
+│   └── globals.css       # Global styles
+└── components/
+    ├── App.js            # Main app component
+    ├── Layout.js         # Site layout with header/footer
+    ├── NavLink.js        # Navigation component
+    ├── FeatureCard.js    # Feature display cards
+    ├── FeatureDetail.js  # Detailed feature components
+    ├── CommandTable.js   # Command documentation tables
+    └── pages/
+        ├── HomePage.js
+        ├── FeaturesPage.js
+        ├── CommandsPage.js
+        ├── BotAccountSetupPage.js
+        ├── SupportPage.js
+        ├── PrivacyPolicyPage.js
+        └── TermsOfServicePage.js
+```
 
-## Learn More
+## Bot Invitation
 
-To learn more about Next.js, take a look at the following resources:
+To add RSVP Manager to your Discord server, use this invitation link:
+[Invite RSVP Manager](https://discord.com/oauth2/authorize?client_id=1388283299562262559&permissions=1144344644123728&integration_type=0&scope=bot)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Required Bot Permissions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Send Messages
+- Use Slash Commands  
+- Manage Messages
+- View Members
+- Embed Links
 
-## Deploy on Vercel
+## Configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+After adding the bot to your server, use these key setup commands:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. `/set_event_channel` - Choose where events are posted
+2. `/set_event_time` - Set event start times
+3. `/setup_weekly_schedule` - Create your weekly event schedule
+4. `/configure_reminders` - Enable automatic reminders
+
+## Deployment
+
+### Deploy on Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import your repository in [Vercel](https://vercel.com)
+3. Vercel will automatically detect Next.js and configure the build
+4. Your site will be deployed with automatic deployments on git push
+
+### Other Deployment Options
+
+- **Netlify**: Works with Next.js static export
+- **Railway**: Full-stack deployment
+- **AWS Amplify**: Scalable hosting
+- **Self-hosted**: Using `npm run build` and `npm start`
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -m 'Add feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a pull request
+
+## Support
+
+For bot support or website issues:
+- Join our Discord support server (link in website)
+- Create an issue in this repository
+- Email support (contact info on website)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Built with ❤️ for the Discord community
