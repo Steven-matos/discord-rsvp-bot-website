@@ -367,7 +367,7 @@ const DocumentationPage = () => {
       <div className="sticky top-16 sm:top-20 z-40 bg-gray-900/95 backdrop-blur-md border-b border-gray-700/50 py-4 sm:py-6">
         <div className="container mx-auto px-2 sm:px-4">
           <div className="flex justify-center items-center w-full">
-            <div className="flex space-x-1 sm:space-x-2 lg:space-x-4 justify-center">
+            <div className="flex space-x-2 sm:space-x-4 lg:space-x-6 justify-center">
               <TabButton 
                 id="features" 
                 label="Features" 
