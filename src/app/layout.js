@@ -56,7 +56,7 @@ export const metadata = {
   },
   images: [
     {
-      url: "/logo.png",
+      url: "https://discord-rsvp-bot-website.vercel.app/logo.png",
       width: 800,
       height: 600,
       alt: "RSVP Manager Logo",
@@ -65,13 +65,13 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "/",
+    url: "https://discord-rsvp-bot-website.vercel.app/",
     siteName: "RSVP Manager",
     title: "RSVP Manager - Event Management Made Easy",
     description: "A powerful Discord bot for managing event RSVPs and attendance. Create events, track responses, and keep your community organized with seamless event management.",
     images: [
       {
-        url: "/logo.png",
+        url: "https://discord-rsvp-bot-website.vercel.app/logo.png",
         width: 800,
         height: 600,
         alt: "RSVP Manager Logo",
@@ -84,7 +84,7 @@ export const metadata = {
     creator: "@RSVPManager",
     title: "RSVP Manager - Event Management Made Easy",
     description: "A powerful Discord bot for managing event RSVPs and attendance. Create events, track responses, and keep your community organized with seamless event management.",
-    images: ["/logo.png"],
+    images: ["https://discord-rsvp-bot-website.vercel.app/logo.png"],
   },
   other: {
     "application-name": "RSVP Manager",
