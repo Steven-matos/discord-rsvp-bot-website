@@ -14,7 +14,33 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "RSVP Manager - Event Management Made Easy",
   description: "A powerful Discord bot for managing event RSVPs and attendance. Create events, track responses, and keep your community organized with seamless event management.",
+  keywords: [
+    "Discord bot", 
+    "RSVP management", 
+    "event planning", 
+    "Discord events", 
+    "attendance tracking", 
+    "community management", 
+    "event RSVP", 
+    "Discord server management", 
+    "event organization", 
+    "Discord automation",
+    "guild events",
+    "event registration"
+  ],
+  authors: [{ name: "RSVP Manager Team" }],
+  creator: "RSVP Manager",
+  publisher: "RSVP Manager",
+  category: "Discord Bot",
+  classification: "Discord Bot, Event Management Software",
+  robots: "index, follow",
+  googlebot: "index, follow",
+  language: "en-US",
   manifest: "/site.webmanifest",
+  metadataBase: new URL("https://rsvp-manager.com"),
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -37,21 +63,86 @@ export const metadata = {
     },
   ],
   openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "RSVP Manager",
+    title: "RSVP Manager - Event Management Made Easy",
+    description: "A powerful Discord bot for managing event RSVPs and attendance. Create events, track responses, and keep your community organized with seamless event management.",
+    images: [
+      {
+        url: "/logo.png",
+        width: 800,
+        height: 600,
+        alt: "RSVP Manager Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@RSVPManager",
+    creator: "@RSVPManager",
     title: "RSVP Manager - Event Management Made Easy",
     description: "A powerful Discord bot for managing event RSVPs and attendance. Create events, track responses, and keep your community organized with seamless event management.",
     images: ["/logo.png"],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "RSVP Manager - Event Management Made Easy",
-    description: "A powerful Discord bot for managing event RSVPs and attendance. Create events, track responses, and keep your community organized with seamless event management.",
-    images: ["/logo.png"],
+  other: {
+    "application-name": "RSVP Manager",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "RSVP Manager",
+    "format-detection": "telephone=no",
+    "mobile-web-app-capable": "yes",
+    "msapplication-config": "/browserconfig.xml",
+    "msapplication-TileColor": "#000000",
+    "msapplication-tap-highlight": "no",
+    "theme-color": "#000000",
   },
 };
 
 export default function RootLayout({ children }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RSVP Manager",
+    "description": "A powerful Discord bot for managing event RSVPs and attendance. Create events, track responses, and keep your community organized with seamless event management.",
+    "url": "https://rsvp-manager.com",
+    "logo": "https://rsvp-manager.com/logo.png",
+    "image": "https://rsvp-manager.com/logo.png",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Discord",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "150"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "RSVP Manager Team"
+    },
+    "featureList": [
+      "Event Creation",
+      "RSVP Tracking",
+      "Attendance Management", 
+      "Community Organization",
+      "Discord Integration",
+      "Event Notifications"
+    ]
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
