@@ -37,7 +37,7 @@ export const metadata = {
   googlebot: "index, follow",
   language: "en-US",
   manifest: "/site.webmanifest",
-  metadataBase: new URL("https://rsvp-manager.com"),
+  metadataBase: new URL("https://discord-rsvp-bot-website.vercel.app"),
   alternates: {
     canonical: "/",
   },
@@ -106,9 +106,9 @@ export default function RootLayout({ children }) {
     "@type": "SoftwareApplication",
     "name": "RSVP Manager",
     "description": "A powerful Discord bot for managing event RSVPs and attendance. Create events, track responses, and keep your community organized with seamless event management.",
-    "url": "https://rsvp-manager.com",
-    "logo": "https://rsvp-manager.com/logo.png",
-    "image": "https://rsvp-manager.com/logo.png",
+    "url": "https://discord-rsvp-bot-website.vercel.app",
+    "logo": "https://discord-rsvp-bot-website.vercel.app/logo.png",
+    "image": "https://discord-rsvp-bot-website.vercel.app/logo.png",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Discord",
     "offers": {
