@@ -139,6 +139,21 @@ const DocumentationPage = () => {
             title: "Enhanced Error Handling",
             description: "Replaced cryptic database errors with clear, actionable messages for DNS, connection, authentication, and service unavailability issues, including specific troubleshooting steps.",
             icon: "🚨"
+          },
+          {
+            title: "RSVP System Workflow",
+            description: "Daily workflow: Bot posts events → Members click buttons (✅ Yes, ❌ No, ❓ Maybe, 📱 Mobile) → Smart reminders sent → Attendance tracking. Supports multiple posts per day with aggregated responses.",
+            icon: "🔄"
+          },
+          {
+            title: "Advanced Reminder System",
+            description: "Three configurable reminder types: 4:00 PM Eastern (daily awareness), 1-hour before event (preparation), and 15-minute before (last chance). All individually controllable.",
+            icon: "⏰"
+          },
+          {
+            title: "Data Persistence & Security",
+            description: "All schedules and RSVP responses stored securely in Supabase with encryption. Historical attendance data preserved permanently. Admin-only command restrictions with user ID verification.",
+            icon: "🔐"
           }
         ].map((feature, index) => (
           <div key={index} className="transform hover:scale-105 transition-transform duration-300 w-full max-w-full">
@@ -175,6 +190,8 @@ const DocumentationPage = () => {
               { command: '`/set_admin_channel`', description: 'Set the channel for admin notifications about schedule issues.' },
               { command: '`/force_post_rsvp`', description: 'Manually post today\'s RSVP if automatic posting fails.' },
               { command: '`/delete_message`', description: 'Delete a specific message by its message ID.' },
+              { command: '`/cleanup_old_posts`', description: 'Manually remove old event posts while preserving RSVP data.' },
+              { command: '`/reset_setup`', description: 'Clear stuck weekly schedule setup process if interrupted.' },
               { command: '`/list_commands`', description: 'See all available commands.' },
               { command: '`/force_sync`', description: 'Fix command display issues on Discord.' },
             ]}
@@ -210,6 +227,10 @@ const DocumentationPage = () => {
               { command: '`/bot_status`', description: 'Check the bot\'s current status, uptime, and connection health.' },
               { command: '`/monitor_status`', description: 'Get detailed monitoring information including memory, CPU, and performance metrics.' },
               { command: '`/test_connection`', description: 'Test the bot\'s connection to Discord and database.' },
+              { command: '`/debug_auto_posting`', description: 'Diagnose automatic posting problems with timing and schedule status.' },
+              { command: '`/restart_daily_task`', description: 'Restart automatic posting system if daily posts stop working.' },
+              { command: '`/rate_limit_status`', description: 'Check Discord rate limiting status with recommendations for large servers.' },
+              { command: '`/server_settings`', description: 'Display all bot configuration settings for your server.' },
             ]}
             whoCanUse="Server Admins + Specific User ID (300157754012860425)"
           />
@@ -227,8 +248,16 @@ const DocumentationPage = () => {
       />
 
       <div className="w-full px-4 max-w-full">
-        <StepCard step={1} title="Invite the Bot to Your Server">
+        <StepCard step={1} title="Technical Requirements & Bot Invitation">
           <div className="space-y-4 sm:space-y-6">
+            <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-4">
+              <h4 className="font-semibold text-blue-300 mb-3 text-sm sm:text-base">Technical Requirements:</h4>
+              <ul className="text-gray-300 text-sm space-y-1">
+                <li>• Discord Server (with admin permissions)</li>
+                <li>• Database storage via Supabase (free tier available)</li>
+                <li>• Basic command knowledge for advanced features</li>
+              </ul>
+            </div>
             <p className="text-gray-300 text-sm sm:text-base lg:text-lg">
               Start by adding RSVP Manager to your Discord server with the proper permissions.
             </p>
@@ -327,13 +356,125 @@ const DocumentationPage = () => {
               description="Interactive setup for each day's events, gear requirements, and vehicles"
             />
             <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-3 sm:p-4 mt-3 sm:mt-4 w-full">
-              <p className="text-blue-300 font-medium text-sm sm:text-base">💡 Pro Tip</p>
-              <p className="text-gray-300 mt-1 text-xs sm:text-sm break-words">
-                Use <code className="bg-gray-800 px-1 py-0.5 sm:px-2 sm:py-1 rounded text-green-400 text-xs break-all">/view_schedule</code> to review your setup and <code className="bg-gray-800 px-1 py-0.5 sm:px-2 sm:py-1 rounded text-green-400 text-xs break-all">/edit_event [day]</code> to make changes anytime.
-              </p>
+              <p className="text-blue-300 font-medium text-sm sm:text-base">💡 Pro Tips</p>
+              <div className="text-gray-300 mt-1 text-xs sm:text-sm break-words space-y-2">
+                <p>Use <code className="bg-gray-800 px-1 py-0.5 sm:px-2 sm:py-1 rounded text-green-400 text-xs break-all">/view_schedule</code> to review your setup and <code className="bg-gray-800 px-1 py-0.5 sm:px-2 sm:py-1 rounded text-green-400 text-xs break-all">/edit_event [day]</code> to make changes anytime.</p>
+                <p>Example weekly schedule: Monday = "Raid Night" | Combat Gear | Tank</p>
+                <p>The bot uses Eastern Time for all scheduling and reminders.</p>
+              </div>
             </div>
           </div>
         </StepCard>
+      </div>
+    </div>
+  );
+
+  const renderAdvanced = () => (
+    <div className="space-y-8 sm:space-y-12 lg:space-y-16">
+      <SectionHeader 
+        title="Advanced Features & Best Practices"
+        subtitle="Master advanced functionality and optimize your bot setup for the best community experience"
+        icon="⚙️"
+      />
+
+      <div className="px-4 w-full max-w-full space-y-8 sm:space-y-12">
+        {/* Advanced Features */}
+        <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 rounded-2xl p-6 sm:p-8 border border-purple-500/20">
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-purple-400 flex items-center">
+            <span className="mr-3 text-2xl">🔧</span>
+            Advanced Features
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <h4 className="text-xl font-medium text-blue-300">Multiple Posts Per Day</h4>
+              <p className="text-gray-300">Bot handles multiple manual posts for the same event, aggregating RSVP responses across all posts. Useful for re-posting if the original is deleted.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-medium text-blue-300">Automatic Cleanup</h4>
+              <p className="text-gray-300">Removes Discord messages older than yesterday while preserving all RSVP data in the database. Keeps channels clean without losing attendance history.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-medium text-blue-300">Performance Monitoring</h4>
+              <p className="text-gray-300">Real-time bot health metrics, memory and CPU usage tracking, connection quality monitoring, and automatic error recovery.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-medium text-blue-300">Timezone Handling</h4>
+              <p className="text-gray-300">All times use Eastern Time Zone with automatic daylight saving time adjustment. Clear time displays show both Eastern and UTC.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Best Practices */}
+        <div className="bg-gradient-to-r from-green-900/20 to-teal-900/20 rounded-2xl p-6 sm:p-8 border border-green-500/20">
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-green-400 flex items-center">
+            <span className="mr-3 text-2xl">✨</span>
+            Best Practices
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">1.</span>
+                <p className="text-gray-300">Set up weekly schedules at the start of each week for consistency</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">2.</span>
+                <p className="text-gray-300">Monitor bot status regularly with diagnostic commands</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">3.</span>
+                <p className="text-gray-300">Use cleanup commands to maintain channel organization</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">4.</span>
+                <p className="text-gray-300">Test changes with debug commands before events</p>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">5.</span>
+                <p className="text-gray-300">Keep Supabase project active and updated</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">6.</span>
+                <p className="text-gray-300">Review attendance trends with yesterday RSVP commands</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">7.</span>
+                <p className="text-gray-300">Configure appropriate reminder timing for your community</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">8.</span>
+                <p className="text-gray-300">Space out admin commands during peak times to avoid rate limits</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Security Features */}
+        <div className="bg-gradient-to-r from-red-900/20 to-orange-900/20 rounded-2xl p-6 sm:p-8 border border-red-500/20">
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-red-400 flex items-center">
+            <span className="mr-3 text-2xl">🔒</span>
+            Security Features
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <h4 className="text-xl font-medium text-orange-300">Admin Command Restrictions</h4>
+              <p className="text-gray-300">Critical commands are restricted to server admins and specific approved user IDs (300157754012860425) for enhanced security.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-medium text-orange-300">Database Encryption</h4>
+              <p className="text-gray-300">All data stored in Supabase with encryption. Environment variables protected. No sensitive personal data beyond Discord IDs collected.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-medium text-orange-300">Permission-Based Access</h4>
+              <p className="text-gray-300">User ID verification system ensures only authorized users can access admin features. Automatic permission checking for all operations.</p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-medium text-orange-300">Error Handling</h4>
+              <p className="text-gray-300">Comprehensive error handling with automatic recovery from connection issues. Clear error messages without exposing sensitive system information.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -389,6 +530,13 @@ const DocumentationPage = () => {
                 isActive={activeTab === 'setup'} 
                 onClick={setActiveTab} 
               />
+              <TabButton 
+                id="advanced" 
+                label="Advanced" 
+                icon="⚙️" 
+                isActive={activeTab === 'advanced'} 
+                onClick={setActiveTab} 
+              />
             </div>
           </div>
         </div>
@@ -400,6 +548,7 @@ const DocumentationPage = () => {
           {activeTab === 'features' && renderFeatures()}
           {activeTab === 'commands' && renderCommands()}
           {activeTab === 'setup' && renderSetup()}
+          {activeTab === 'advanced' && renderAdvanced()}
         </div>
       </div>
     </div>

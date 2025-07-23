@@ -198,6 +198,31 @@ const SupportPage = () => {
               title="Bot Suddenly Stopped Working?"
               solution="Check if the bot is still in your server and has the necessary permissions. Server permission changes or role updates can affect bot functionality."
             />
+            
+            <TroubleshootingItem
+              title="Automatic Posting Not Working?"
+              solution="Use /debug_auto_posting to diagnose issues. Verify weekly schedule is configured, check event channel permissions, confirm posting time settings, and try /restart_daily_task if needed."
+            />
+            
+            <TroubleshootingItem
+              title="Database Connection Errors?"
+              solution="Verify your Supabase project is active and accessible. Check SUPABASE_URL and SUPABASE_KEY environment variables. Use /test_connection to diagnose connectivity issues. Ensure database tables are properly created."
+            />
+            
+            <TroubleshootingItem
+              title="Rate Limiting Issues?"
+              solution="Use /rate_limit_status to check server risk level. Avoid frequent /view_rsvps commands in large servers (500+ members). The bot includes automatic rate limiting protection - space out admin commands during peak times."
+            />
+            
+            <TroubleshootingItem
+              title="Commands Not Syncing?"
+              solution="Use /force_sync to refresh command registration with Discord. Commands may take up to 1 hour to appear after adding the bot. Check that the bot has 'Use Slash Commands' permission in your server."
+            />
+            
+            <TroubleshootingItem
+              title="Setup Process Stuck?"
+              solution="If weekly schedule setup gets interrupted or stuck, use /reset_setup to clear the process and start fresh. This won't delete existing schedules, just clears any incomplete setup states."
+            />
           </div>
         </div>
       </section>
