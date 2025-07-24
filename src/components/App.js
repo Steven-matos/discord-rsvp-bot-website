@@ -8,30 +8,39 @@ import SupportPage from './pages/SupportPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 
+/**
+ * Main application component handling page routing and state management
+ * @returns {JSX.Element} App component
+ */
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const toggleMobileMenu = () => {
+  /**
+   * Handle mobile menu toggle functionality
+   */
+  const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Render the current page
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage />;
-      case 'documentation':
-        return <DocumentationPage />;
-      case 'support':
-        return <SupportPage />;
-      case 'privacy':
-        return <PrivacyPolicyPage setCurrentPage={setCurrentPage} />;
-      case 'terms':
-        return <TermsOfServicePage setCurrentPage={setCurrentPage} />;
-      default:
-        return <HomePage />;
-    }
+  /**
+   * Page routing configuration with component mapping
+   * @constant {Object}
+   */
+  const pageComponents = {
+    home: <HomePage />,
+    documentation: <DocumentationPage />,
+    support: <SupportPage />,
+    privacy: <PrivacyPolicyPage setCurrentPage={setCurrentPage} />,
+    terms: <TermsOfServicePage setCurrentPage={setCurrentPage} />
+  };
+
+  /**
+   * Render the current page component based on routing state
+   * @returns {JSX.Element} Current page component
+   */
+  const renderCurrentPage = () => {
+    return pageComponents[currentPage] || pageComponents.home;
   };
 
   return (
@@ -39,9 +48,9 @@ const App = () => {
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       isMobileMenuOpen={isMobileMenuOpen}
-      toggleMobileMenu={toggleMobileMenu}
+      toggleMobileMenu={handleMobileMenuToggle}
     >
-      {renderPage()}
+      {renderCurrentPage()}
     </Layout>
   );
 };

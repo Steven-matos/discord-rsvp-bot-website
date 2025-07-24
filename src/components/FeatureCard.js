@@ -1,6 +1,16 @@
+import { GRADIENTS, STYLES, ANIMATIONS } from '../constants';
+
+/**
+ * Feature card component displaying individual feature information
+ * @param {Object} props - Component props
+ * @param {string} props.icon - Emoji icon for the feature
+ * @param {string} props.title - Feature title
+ * @param {string} props.description - Feature description
+ * @returns {JSX.Element} FeatureCard component
+ */
 const FeatureCard = ({ icon, title, description }) => (
-  <div className="group relative bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-700/50 hover:border-blue-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 transform hover:scale-105 w-full max-w-full">
-    <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 p-4 rounded-xl text-4xl sm:text-5xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300 mb-6 w-fit">
+  <div className={`group relative ${STYLES.card.base} ${GRADIENTS.cardBg} p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-700/50 ${STYLES.card.hover} w-full max-w-full`}>
+    <div className={`bg-gradient-to-br ${GRADIENTS.iconBg} p-4 rounded-xl text-4xl sm:text-5xl flex-shrink-0 ${ANIMATIONS.scaleHoverLarge} mb-6 w-fit`}>
       {icon}
     </div>
     <div className="space-y-4">

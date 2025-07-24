@@ -1,5 +1,14 @@
+import { GRADIENTS, STYLES } from '../constants';
+
+/**
+ * Command table component for displaying bot commands with descriptions
+ * @param {Object} props - Component props
+ * @param {Array} props.commands - Array of command objects with command and description
+ * @param {string} props.whoCanUse - Description of who can use these commands
+ * @returns {JSX.Element} CommandTable component
+ */
 const CommandTable = ({ commands, whoCanUse }) => (
-  <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-700/50 w-full max-w-full">
+  <div className={`${STYLES.card.base} ${GRADIENTS.cardBg} rounded-2xl shadow-2xl border border-gray-700/50 w-full max-w-full`}>
     {/* Mobile Card Layout */}
     <div className="block sm:hidden w-full">
       <div className="p-4 w-full">

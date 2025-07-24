@@ -1,15 +1,69 @@
 import NavLink from './NavLink';
 import Image from 'next/image';
 import ScrollToTop from './ScrollToTop';
+import { BOT_INVITE_URL, APP_METADATA, GRADIENTS } from '../constants';
 
+/**
+ * Main layout component providing consistent header, footer, and navigation
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - Page content to render
+ * @param {string} props.currentPage - Current active page identifier
+ * @param {Function} props.setCurrentPage - Function to update current page
+ * @param {boolean} props.isMobileMenuOpen - Mobile menu open state
+ * @param {Function} props.toggleMobileMenu - Function to toggle mobile menu
+ * @returns {JSX.Element} Layout component
+ */
 const Layout = ({ children, currentPage, setCurrentPage, isMobileMenuOpen, toggleMobileMenu }) => {
-  const BOT_INVITE_URL = "https://discord.com/oauth2/authorize?client_id=1388283299562262559&permissions=1144344644123728&integration_type=0&scope=bot";
-
-  const closeMobileMenu = () => {
+  /**
+   * Handle mobile menu close functionality
+   */
+  const handleMobileMenuClose = () => {
     if (isMobileMenuOpen) {
       toggleMobileMenu();
     }
   };
+
+  /**
+   * Logo component for consistent branding
+   * @param {Object} props - Logo props
+   * @param {boolean} props.inFooter - Whether logo is in footer (affects styling)
+   * @returns {JSX.Element} Logo component
+   */  
+  const Logo = ({ inFooter = false }) => (
+    <div className="flex items-center group">
+      <div className={`bg-gradient-to-br ${GRADIENTS.iconBg} p-2 rounded-xl mr-3 group-hover:scale-110 transition-transform duration-300`}>
+        <Image
+          src={APP_METADATA.logoPath}
+          alt={APP_METADATA.logoAlt}
+          width={APP_METADATA.logoSize.width}
+          height={APP_METADATA.logoSize.height}
+          className={inFooter ? "w-8 h-8" : "sm:w-8 sm:h-8 lg:w-10 lg:h-10"}
+        />
+      </div>
+      <span className={`font-bold ${inFooter ? "text-xl" : "text-xl sm:text-2xl"} tracking-tight bg-gradient-to-r ${GRADIENTS.text} bg-clip-text text-transparent`}>
+        {APP_METADATA.name}
+      </span>
+    </div>
+  );
+
+  /**
+   * Navigation links configuration
+   * @constant {Array}
+   */
+  const navigationLinks = [
+    { id: 'home', label: 'Home' },
+    { id: 'documentation', label: 'Documentation' },
+    { id: 'support', label: 'Support' }
+  ];
+
+  /**
+   * Footer links configuration
+   * @constant {Array}
+   */
+  const footerLinks = [
+    { id: 'privacy', label: 'Privacy Policy' },
+    { id: 'terms', label: 'Terms of Service' }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-gray-100 font-inter flex flex-col">
@@ -18,54 +72,31 @@ const Layout = ({ children, currentPage, setCurrentPage, isMobileMenuOpen, toggl
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
             {/* Logo Section */}
-            <div className="flex items-center flex-shrink-0 group">
-              <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 p-2 rounded-xl mr-3 group-hover:scale-110 transition-transform duration-300">
-                <Image
-                  src="/logo.png"
-                  alt="RSVP Manager Logo"
-                  width={32}
-                  height={32}
-                  className="sm:w-8 sm:h-8 lg:w-10 lg:h-10"
-                />
-              </div>
-              <span className="font-bold text-xl sm:text-2xl tracking-tight bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                RSVP Manager
-              </span>
+            <div className="flex-shrink-0">
+              <Logo />
             </div>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
-              <NavLink 
-                currentPage={currentPage}
-                targetPage="home"
-                onClick={() => setCurrentPage('home')}
-                setIsMobileMenuOpen={closeMobileMenu}
-              >
-                Home
-              </NavLink>
-              <NavLink 
-                currentPage={currentPage}
-                targetPage="documentation"
-                onClick={() => setCurrentPage('documentation')}
-                setIsMobileMenuOpen={closeMobileMenu}
-              >
-                Documentation
-              </NavLink>
-              <NavLink 
-                currentPage={currentPage}
-                targetPage="support"
-                onClick={() => setCurrentPage('support')}
-                setIsMobileMenuOpen={closeMobileMenu}
-              >
-                Support
-              </NavLink>
+              {navigationLinks.map((link) => (
+                <NavLink 
+                  key={link.id}
+                  currentPage={currentPage}
+                  targetPage={link.id}
+                  onClick={() => setCurrentPage(link.id)}
+                  setIsMobileMenuOpen={handleMobileMenuClose}
+                >
+                  {link.label}
+                </NavLink>
+              ))}
               
               {/* CTA Button */}
               <a
                 href={BOT_INVITE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-4 inline-block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2.5 px-6 rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out text-sm btn-premium"
+                className={`ml-4 inline-block bg-gradient-to-r ${GRADIENTS.primary} hover:${GRADIENTS.primaryHover} text-white font-bold py-2.5 px-6 rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out text-sm btn-premium`}
+                aria-label="Add RSVP Manager to your Discord server"
               >
                 Add to Discord
               </a>
@@ -76,8 +107,9 @@ const Layout = ({ children, currentPage, setCurrentPage, isMobileMenuOpen, toggl
               <button
                 onClick={toggleMobileMenu}
                 className="inline-flex items-center justify-center p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/50 transition duration-300 ease-in-out border border-gray-700/50 hover:border-blue-500/30"
+                aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
               >
-                <span className="sr-only">Open main menu</span>
+                <span className="sr-only">{isMobileMenuOpen ? "Close" : "Open"} main menu</span>
                 <svg
                   className={`${isMobileMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
                   xmlns="http://www.w3.org/2000/svg"
@@ -105,40 +137,26 @@ const Layout = ({ children, currentPage, setCurrentPage, isMobileMenuOpen, toggl
           {/* Mobile Menu */}
           <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden border-t border-gray-700/50 py-4`}>
             <div className="flex flex-col space-y-2">
-              <NavLink 
-                currentPage={currentPage}
-                targetPage="home"
-                onClick={() => setCurrentPage('home')}
-                setIsMobileMenuOpen={closeMobileMenu}
-                className="block px-3 py-2 rounded-lg"
-              >
-                Home
-              </NavLink>
-              <NavLink 
-                currentPage={currentPage}
-                targetPage="documentation"
-                onClick={() => setCurrentPage('documentation')}
-                setIsMobileMenuOpen={closeMobileMenu}
-                className="block px-3 py-2 rounded-lg"
-              >
-                Documentation
-              </NavLink>
-              <NavLink 
-                currentPage={currentPage}
-                targetPage="support"
-                onClick={() => setCurrentPage('support')}
-                setIsMobileMenuOpen={closeMobileMenu}
-                className="block px-3 py-2 rounded-lg"
-              >
-                Support
-              </NavLink>
+              {navigationLinks.map((link) => (
+                <NavLink 
+                  key={link.id}
+                  currentPage={currentPage}
+                  targetPage={link.id}
+                  onClick={() => setCurrentPage(link.id)}
+                  setIsMobileMenuOpen={handleMobileMenuClose}
+                  className="block px-3 py-2 rounded-lg"
+                >
+                  {link.label}
+                </NavLink>
+              ))}
               
               <div className="pt-4 border-t border-gray-700/50 mt-4">
                 <a
                   href={BOT_INVITE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out btn-premium"
+                  className={`block w-full text-center bg-gradient-to-r ${GRADIENTS.primary} hover:${GRADIENTS.primaryHover} text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out btn-premium`}
+                  aria-label="Add RSVP Manager to your Discord server"
                 >
                   Add to Discord
                 </a>
@@ -158,44 +176,26 @@ const Layout = ({ children, currentPage, setCurrentPage, isMobileMenuOpen, toggl
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
           <div className="text-center">
             <div className="flex justify-center mb-6">
-              <div className="flex items-center group">
-                <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 p-2 rounded-xl mr-3 group-hover:scale-110 transition-transform duration-300">
-                  <Image
-                    src="/logo.png"
-                    alt="RSVP Manager Logo"
-                    width={32}
-                    height={32}
-                  />
-                </div>
-                <span className="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  RSVP Manager
-                </span>
-              </div>
+              <Logo inFooter />
             </div>
             
             <p className="text-gray-400 mb-6 text-sm sm:text-base">
-              &copy; {new Date().getFullYear()} RSVP Manager. All rights reserved.
+              &copy; {new Date().getFullYear()} {APP_METADATA.name}. All rights reserved.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6">
-              <NavLink 
-                currentPage={currentPage}
-                targetPage="privacy"
-                onClick={() => setCurrentPage('privacy')} 
-                setIsMobileMenuOpen={closeMobileMenu}
-                className="text-gray-400 hover:text-blue-400 transition duration-300"
-              >
-                Privacy Policy
-              </NavLink>
-              <NavLink 
-                currentPage={currentPage}
-                targetPage="terms"
-                onClick={() => setCurrentPage('terms')} 
-                setIsMobileMenuOpen={closeMobileMenu}
-                className="text-gray-400 hover:text-blue-400 transition duration-300"
-              >
-                Terms of Service
-              </NavLink>
+              {footerLinks.map((link) => (
+                <NavLink 
+                  key={link.id}
+                  currentPage={currentPage}
+                  targetPage={link.id}
+                  onClick={() => setCurrentPage(link.id)} 
+                  setIsMobileMenuOpen={handleMobileMenuClose}
+                  className="text-gray-400 hover:text-blue-400 transition duration-300"
+                >
+                  {link.label}
+                </NavLink>
+              ))}
             </div>
           </div>
         </div>
