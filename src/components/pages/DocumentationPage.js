@@ -8,7 +8,7 @@ import SectionHeader from '../ui/SectionHeader';
 import CodeBlock from '../ui/CodeBlock';
 import StepCard from '../ui/StepCard';
 import Button from '../ui/Button';
-import { BOT_INVITE_URL, GRADIENTS, STYLES } from '../../constants';
+import { BOT_INVITE_URL, GRADIENTS, STYLES, COMMAND_GROUPS } from '../../constants';
 
 /**
  * Documentation page component with tabbed interface for features, commands, setup, and advanced topics
@@ -34,139 +34,83 @@ const DocumentationPage = () => {
    */
   const featuresData = [
     {
-      title: "Weekly Planning",
-      description: "Define your community's weekly schedule with custom events for each day. Specify event names, required gear/outfits, and even vehicles for games like GTA Online.",
+      title: "Weekly Event Planning",
+      description: "Set up recurring events for each day of the week with comprehensive details including event names, required gear/outfits, and vehicles. Perfect for gaming communities, training sessions, and regular meetups.",
       icon: "📅"
     },
     {
-      title: "Easy RSVPs",
-      description: "Streamlined RSVP process with interactive buttons: ✅ Yes, ❌ No,❓ Maybe, and 📱 Mobile. Members can easily update their status anytime.",
+      title: "Intelligent RSVP System",
+      description: "Four-button RSVP system: ✅ Yes, ❌ No, ❓ Maybe, and 📱 Mobile. Smart aggregation across multiple posts per day with real-time attendance tracking and member name display.",
       icon: "🎯"
     },
     {
-      title: "Smart Reminders",
-      description: "Configurable automatic reminders sent at 4 PM Eastern, 1 hour before the event, and 15 minutes before, ensuring no one misses out.",
+      title: "Multi-Layer Reminder System",
+      description: "Three configurable reminder types: 4:00 PM Eastern (daily awareness), 1-hour before event (preparation), and 15-minute before (last chance). Each individually controllable for optimal engagement.",
       icon: "⏰"
     },
     {
-      title: "Mobile Friendly",
-      description: "A dedicated 'Mobile' RSVP option caters specifically to users on mobile devices, improving accessibility and participation.",
-      icon: "📱"
+      title: "Advanced Reporting & Analytics",
+      description: "Comprehensive attendance analysis with midweek reports (Monday-Wednesday) and full weekly reports. Track participation patterns, identify consistent attendees, and monitor community engagement trends.",
+      icon: "📊"
     },
     {
-      title: "Attendance Tracking",
-      description: "Quickly view who has RSVP'd for today's or yesterday's events with simple commands, providing clear attendance insights.",
-      icon: "👥"
-    },
-    {
-      title: "Automatic Posts",
-      description: "Set it and forget it! The bot automatically posts daily event announcements at your chosen time (default: 9:00 AM Eastern).",
+      title: "Automated Daily Operations",
+      description: "Fully automated daily workflow: posts events at configured times, manages RSVP responses, sends smart reminders, and maintains clean channels with automatic cleanup of old posts.",
       icon: "🔄"
     },
     {
-      title: "Manual Override",
-      description: "Admins can manually trigger today's RSVP post using `/force_post_rsvp` in case of any automatic posting issues, with real-time progress updates.",
+      title: "Professional Command Structure",
+      description: "Organized command system with /list_commands for everyday use and /list_help for advanced troubleshooting. Commands grouped by functionality: setup, management, reporting, and diagnostics.",
+      icon: "🛠️"
+    },
+    {
+      title: "Comprehensive Troubleshooting",
+      description: "Built-in diagnostic tools including connection testing, auto-posting debugging, reminder system analysis, and performance monitoring. Self-healing capabilities with automatic error recovery.",
       icon: "🔧"
     },
     {
-      title: "Admin Access",
-      description: "A special user ID (300157754012860425) has full admin command access, providing a reliable backup for server management.",
-      icon: "👑"
+      title: "Enterprise-Grade Security",
+      description: "Multi-level admin access control, encrypted data storage via Supabase, environment variable protection, and permission-based command restrictions. No sensitive personal data collection beyond Discord IDs.",
+      icon: "🔐"
     },
     {
-      title: "Event Editing",
-      description: "Admins can easily modify existing events for any day using `/edit_event`, with changes taking effect immediately for future posts.",
-      icon: "✏️"
-    },
-    {
-      title: "Performance & Reliability",
-      description: "Enhanced command performance with parallel database queries, smart caching, and robust error handling for Discord interaction timeouts.",
+      title: "Real-Time Performance Monitoring",
+      description: "Live bot health metrics including uptime tracking, memory usage, CPU statistics, connection quality monitoring, and Discord rate limiting status with recommendations for large servers.",
       icon: "⚡"
     },
     {
-      title: "Automatic Cleanup",
-      description: "The bot automatically deletes previous RSVP posts before creating new ones, keeping your channels tidy.",
+      title: "Flexible Event Management",
+      description: "Easy event editing with /edit_event, schedule viewing, manual posting capabilities, and support for multiple event formats. Changes take effect immediately with comprehensive validation.",
+      icon: "✏️"
+    },
+    {
+      title: "Smart Data Persistence",
+      description: "All schedules and RSVP responses permanently stored in Supabase. Historical attendance data preserved while Discord messages are cleaned up. Perfect for long-term community analytics.",
+      icon: "💾"
+    },
+    {
+      title: "Mobile-First Design",
+      description: "Dedicated mobile RSVP option, responsive command interface, and optimized performance for users on mobile devices. Enhanced accessibility features throughout the system.",
+      icon: "📱"
+    },
+    {
+      title: "Timezone Intelligence",
+      description: "All operations use Eastern Time with automatic daylight saving time adjustment. Clear time displays show both Eastern and UTC. Intelligent scheduling prevents conflicts.",
+      icon: "🌍"
+    },
+    {
+      title: "Community Engagement Tools",
+      description: "Member name tracking, non-responder identification, participation rate calculations, perfect attendance recognition, and engagement pattern analysis to boost community involvement.",
+      icon: "👥"
+    },
+    {
+      title: "Maintenance-Free Operation",
+      description: "Automatic cleanup routines, self-healing error recovery, background task management, and comprehensive logging. Designed to run continuously with minimal intervention required.",
       icon: "🧹"
-    },
-    {
-      title: "Enhanced Error Handling",
-      description: "Replaced cryptic database errors with clear, actionable messages for DNS, connection, authentication, and service unavailability issues, including specific troubleshooting steps.",
-      icon: "🚨"
-    },
-    {
-      title: "RSVP System Workflow",
-      description: "Daily workflow: Bot posts events → Members click buttons (✅ Yes, ❌ No, ❓ Maybe, 📱 Mobile) → Smart reminders sent → Attendance tracking. Supports multiple posts per day with aggregated responses.",
-      icon: "🔄"
-    },
-    {
-      title: "Advanced Reminder System",
-      description: "Three configurable reminder types: 4:00 PM Eastern (daily awareness), 1-hour before event (preparation), and 15-minute before (last chance). All individually controllable.",
-      icon: "⏰"
-    },
-    {
-      title: "Data Persistence & Security",
-      description: "All schedules and RSVP responses stored securely in Supabase with encryption. Historical attendance data preserved permanently. Admin-only command restrictions with user ID verification.",
-      icon: "🔐"
     }
   ];
 
-  /**
-   * Command groups configuration
-   * @constant {Array}
-   */
-  const commandGroups = [
-    {
-      title: "Admin Commands",
-      icon: "👑",
-      color: "purple",
-      whoCanUse: "Server Admins + Specific User ID (300157754012860425)",
-      commands: [
-        { command: '`/setup_weekly_schedule`', description: 'Create or change your weekly events.' },
-        { command: '`/view_schedule`', description: 'View the current weekly schedule.' },
-        { command: '`/edit_event [day]`', description: 'Edit an existing event for any day.' },
-        { command: '`/set_event_channel`', description: 'Choose where events are posted.' },
-        { command: '`/set_event_time`', description: 'Set what time events start (e.g., `hour:20 minute:0`).' },
-        { command: '`/set_posting_time`', description: 'Set when daily RSVP posts are created (e.g., `hour:9 minute:0`).' },
-        { command: '`/configure_reminders`', description: 'Control when reminders are sent (e.g., `enabled:true four_pm:true`).' },
-        { command: '`/set_admin_channel`', description: 'Set the channel for admin notifications about schedule issues.' },
-        { command: '`/force_post_rsvp`', description: 'Manually post today\'s RSVP if automatic posting fails.' },
-        { command: '`/delete_message`', description: 'Delete a specific message by its message ID.' },
-        { command: '`/cleanup_old_posts`', description: 'Manually remove old event posts while preserving RSVP data.' },
-        { command: '`/reset_setup`', description: 'Clear stuck weekly schedule setup process if interrupted.' },
-        { command: '`/list_commands`', description: 'See all available commands.' },
-        { command: '`/force_sync`', description: 'Fix command display issues on Discord.' },
-      ]
-    },
-    {
-      title: "Member Commands",
-      icon: "👥",
-      color: "green",
-      whoCanUse: "Everyone",
-      commands: [
-        { command: '✅ Yes', description: '"I\'m coming!" (Button RSVP)' },
-        { command: '❌ No', description: '"I can\'t make it" (Button RSVP)' },
-        { command: '❓ Maybe', description: '"I might come" (Button RSVP)' },
-        { command: '📱 Mobile', description: '"I\'m coming, but on mobile" (Button RSVP)' },
-        { command: '`/view_rsvps`', description: 'See who\'s coming to today\'s event.' },
-        { command: '`/view_yesterday_rsvps`', description: 'Check yesterday\'s attendance.' },
-      ]
-    },
-    {
-      title: "Monitoring & Diagnostics",
-      icon: "📊",
-      color: "orange",
-      whoCanUse: "Server Admins + Specific User ID (300157754012860425)",
-      commands: [
-        { command: '`/bot_status`', description: 'Check the bot\'s current status, uptime, and connection health.' },
-        { command: '`/monitor_status`', description: 'Get detailed monitoring information including memory, CPU, and performance metrics.' },
-        { command: '`/test_connection`', description: 'Test the bot\'s connection to Discord and database.' },
-        { command: '`/debug_auto_posting`', description: 'Diagnose automatic posting problems with timing and schedule status.' },
-        { command: '`/restart_daily_task`', description: 'Restart automatic posting system if daily posts stop working.' },
-        { command: '`/rate_limit_status`', description: 'Check Discord rate limiting status with recommendations for large servers.' },
-        { command: '`/server_settings`', description: 'Display all bot configuration settings for your server.' },
-      ]
-    }
-  ];
+
 
   /**
    * Render features section
@@ -198,17 +142,22 @@ const DocumentationPage = () => {
     <div className="space-y-8 sm:space-y-12 lg:space-y-16">
       <SectionHeader 
         title="Command Reference"
-        subtitle="Complete guide to all bot commands, organized by permission level for easy reference"
+        subtitle="Comprehensive guide to all bot commands, organized by functionality and permission level"
         icon="🛠️"
       />
 
       <div className="space-y-8 sm:space-y-12 px-4 w-full max-w-full">
-        {commandGroups.map((group, index) => (
+        {COMMAND_GROUPS.map((group, index) => (
           <div key={index} className={`bg-gradient-to-r from-${group.color}-900/20 to-blue-900/20 rounded-2xl p-4 sm:p-6 lg:p-8 border border-${group.color}-500/20`}>
-            <h3 className={`text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6 text-${group.color}-400 flex items-center`}>
-              <span className="mr-2 sm:mr-3 text-lg sm:text-xl lg:text-2xl">{group.icon}</span>
-              {group.title}
-            </h3>
+            <div className="mb-4 sm:mb-6">
+              <h3 className={`text-xl sm:text-2xl lg:text-3xl font-semibold mb-2 text-${group.color}-400 flex items-center`}>
+                <span className="mr-2 sm:mr-3 text-lg sm:text-xl lg:text-2xl">{group.icon}</span>
+                {group.title}
+              </h3>
+              {group.subtitle && (
+                <p className="text-gray-400 text-sm sm:text-base italic">{group.subtitle}</p>
+              )}
+            </div>
             <CommandTable
               commands={group.commands}
               whoCanUse={group.whoCanUse}
@@ -392,6 +341,52 @@ const DocumentationPage = () => {
           </div>
         </div>
 
+        {/* RSVP System Workflow */}
+        <div className="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 rounded-2xl p-6 sm:p-8 border border-blue-500/20">
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-blue-400 flex items-center">
+            <span className="mr-3 text-2xl">🔄</span>
+            RSVP System Workflow
+          </h3>
+          <div className="space-y-6">
+            <div className="bg-blue-800/20 rounded-lg p-4 border border-blue-400/20">
+              <h4 className="text-xl font-medium text-blue-300 mb-3">Daily Workflow Process</h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <p className="text-gray-300 flex items-center"><span className="text-blue-400 mr-2">1.</span>Bot automatically posts daily events at configured time</p>
+                  <p className="text-gray-300 flex items-center"><span className="text-blue-400 mr-2">2.</span>Members click RSVP buttons (✅ Yes, ❌ No, ❓ Maybe, 📱 Mobile)</p>
+                  <p className="text-gray-300 flex items-center"><span className="text-blue-400 mr-2">3.</span>Bot sends reminders based on your settings</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-gray-300 flex items-center"><span className="text-blue-400 mr-2">4.</span>Admins view attendance with <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/view_rsvps</code></p>
+                  <p className="text-gray-300 flex items-center"><span className="text-blue-400 mr-2">5.</span>Generate comprehensive reports for analysis</p>
+                  <p className="text-gray-300 flex items-center"><span className="text-blue-400 mr-2">6.</span>Automatic cleanup maintains channel organization</p>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h4 className="text-xl font-medium text-cyan-300">RSVP Options</h4>
+                <div className="space-y-2">
+                  <p className="text-gray-300"><span className="text-green-400">✅ YES</span> - "I'm attending the event"</p>
+                  <p className="text-gray-300"><span className="text-red-400">❌ NO</span> - "I can't make it today"</p>
+                  <p className="text-gray-300"><span className="text-yellow-400">❓ MAYBE</span> - "I might attend, not certain"</p>
+                  <p className="text-gray-300"><span className="text-blue-400">📱 MOBILE</span> - "I'm attending but on mobile device"</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <h4 className="text-xl font-medium text-cyan-300">Automatic Features</h4>
+                <div className="space-y-2">
+                  <p className="text-gray-300">• Daily event posts at configured time</p>
+                  <p className="text-gray-300">• Smart reminders (4PM, 1-hour, 15-min before)</p>
+                  <p className="text-gray-300">• Automatic cleanup of old posts</p>
+                  <p className="text-gray-300">• Weekly schedule validation</p>
+                  <p className="text-gray-300">• Admin notifications for missing schedules</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Best Practices */}
         <div className="bg-gradient-to-r from-green-900/20 to-teal-900/20 rounded-2xl p-6 sm:p-8 border border-green-500/20">
           <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-green-400 flex items-center">
@@ -402,37 +397,107 @@ const DocumentationPage = () => {
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <span className="text-green-400 font-bold">1.</span>
-                <p className="text-gray-300">Set up weekly schedules at the start of each week for consistency</p>
+                <p className="text-gray-300">Set up weekly schedules at start of each week</p>
               </div>
               <div className="flex items-start space-x-3">
                 <span className="text-green-400 font-bold">2.</span>
-                <p className="text-gray-300">Monitor bot status regularly with diagnostic commands</p>
+                <p className="text-gray-300">Monitor bot status regularly with <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> diagnostic commands</p>
               </div>
               <div className="flex items-start space-x-3">
                 <span className="text-green-400 font-bold">3.</span>
-                <p className="text-gray-300">Use cleanup commands to maintain channel organization</p>
+                <p className="text-gray-300">Use <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> cleanup commands to maintain organization</p>
               </div>
               <div className="flex items-start space-x-3">
                 <span className="text-green-400 font-bold">4.</span>
-                <p className="text-gray-300">Test changes with debug commands before events</p>
+                <p className="text-gray-300">Test changes with <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> debug commands before events</p>
               </div>
-            </div>
-            <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <span className="text-green-400 font-bold">5.</span>
                 <p className="text-gray-300">Keep Supabase project active and updated</p>
               </div>
+            </div>
+            <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <span className="text-green-400 font-bold">6.</span>
-                <p className="text-gray-300">Review attendance trends with yesterday RSVP commands</p>
+                <p className="text-gray-300">Review trends with <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/view_yesterday_rsvps</code> and weekly reports</p>
               </div>
               <div className="flex items-start space-x-3">
                 <span className="text-green-400 font-bold">7.</span>
-                <p className="text-gray-300">Configure appropriate reminder timing for your community</p>
+                <p className="text-gray-300">Use <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/midweek_rsvp_report</code> on Wednesdays for early-week engagement</p>
               </div>
               <div className="flex items-start space-x-3">
                 <span className="text-green-400 font-bold">8.</span>
-                <p className="text-gray-300">Space out admin commands during peak times to avoid rate limits</p>
+                <p className="text-gray-300">Generate <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/weekly_rsvp_report</code> on Sundays for full analysis</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">9.</span>
+                <p className="text-gray-300">Follow up with members in "No Response" lists</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <span className="text-green-400 font-bold">10.</span>
+                <p className="text-gray-300">Access troubleshooting via <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> for organized problem-solving</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Troubleshooting Guide */}
+        <div className="bg-gradient-to-r from-yellow-900/20 to-orange-900/20 rounded-2xl p-6 sm:p-8 border border-yellow-500/20">
+          <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-yellow-400 flex items-center">
+            <span className="mr-3 text-2xl">🚨</span>
+            Common Issues & Solutions
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="bg-yellow-800/20 rounded-lg p-4 border border-yellow-400/20">
+                <h4 className="text-lg font-medium text-yellow-300 mb-2">Commands Not Showing</h4>
+                <div className="text-gray-300 text-sm space-y-1">
+                  <p>1. Use <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> then <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/force_sync</code></p>
+                  <p>2. Check bot permissions in server settings</p>
+                  <p>3. Wait up to 1 hour for Discord to update</p>
+                </div>
+              </div>
+              <div className="bg-yellow-800/20 rounded-lg p-4 border border-yellow-400/20">
+                <h4 className="text-lg font-medium text-yellow-300 mb-2">Automatic Posting Not Working</h4>
+                <div className="text-gray-300 text-sm space-y-1">
+                  <p>1. Use <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> then <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/debug_auto_posting</code></p>
+                  <p>2. Verify weekly schedule is configured</p>
+                  <p>3. Try <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> then <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/restart_daily_task</code></p>
+                </div>
+              </div>
+              <div className="bg-yellow-800/20 rounded-lg p-4 border border-yellow-400/20">
+                <h4 className="text-lg font-medium text-yellow-300 mb-2">RSVP Posts Not Appearing</h4>
+                <div className="text-gray-300 text-sm space-y-1">
+                  <p>1. Use <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> then <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/force_post_rsvp</code></p>
+                  <p>2. Check bot permissions in event channel</p>
+                  <p>3. Verify current week's schedule is set up</p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="bg-yellow-800/20 rounded-lg p-4 border border-yellow-400/20">
+                <h4 className="text-lg font-medium text-yellow-300 mb-2">Reminders Not Sending</h4>
+                <div className="text-gray-300 text-sm space-y-1">
+                  <p>1. Check settings with <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/configure_reminders</code></p>
+                  <p>2. Use <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> then <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/debug_reminders</code></p>
+                  <p>3. Verify event time is configured</p>
+                </div>
+              </div>
+              <div className="bg-yellow-800/20 rounded-lg p-4 border border-yellow-400/20">
+                <h4 className="text-lg font-medium text-yellow-300 mb-2">Database Errors</h4>
+                <div className="text-gray-300 text-sm space-y-1">
+                  <p>1. Verify Supabase project is active</p>
+                  <p>2. Use <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> then <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/test_connection</code></p>
+                  <p>3. Check SUPABASE_URL and SUPABASE_KEY</p>
+                </div>
+              </div>
+              <div className="bg-yellow-800/20 rounded-lg p-4 border border-yellow-400/20">
+                <h4 className="text-lg font-medium text-yellow-300 mb-2">Rate Limiting Issues</h4>
+                <div className="text-gray-300 text-sm space-y-1">
+                  <p>1. Use <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/list_help</code> then <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/rate_limit_status</code></p>
+                  <p>2. Avoid frequent <code className="bg-gray-800 px-1 py-0.5 rounded text-green-400 text-xs">/view_rsvps</code> in large servers</p>
+                  <p>3. Space out admin commands during peak times</p>
+                </div>
               </div>
             </div>
           </div>
