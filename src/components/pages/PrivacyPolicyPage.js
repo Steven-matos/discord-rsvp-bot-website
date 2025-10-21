@@ -1,6 +1,4 @@
-import NavLink from '../NavLink';
-
-const PrivacyPolicyPage = ({ setCurrentPage }) => (
+const PrivacyPolicyPage = () => (
   <section className="py-8">
     <h1 className="text-4xl font-bold text-center mb-10 text-blue-400">Privacy Policy</h1>
     <div className="max-w-4xl mx-auto bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 text-gray-300">

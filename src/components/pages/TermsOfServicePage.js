@@ -1,6 +1,6 @@
-import NavLink from '../NavLink';
+import Link from 'next/link';
 
-const TermsOfServicePage = ({ setCurrentPage }) => (
+const TermsOfServicePage = () => (
   <section className="py-8">
     <h1 className="text-4xl font-bold text-center mb-10 text-blue-400">Terms of Service</h1>
     <div className="max-w-4xl mx-auto bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 text-gray-300">
@@ -28,12 +28,12 @@ const TermsOfServicePage = ({ setCurrentPage }) => (
       <h2 className="text-2xl font-semibold mb-3 text-purple-400">4. Data and Privacy</h2>
       <p className="mb-4">
         We collect and store certain data necessary for the bot's functionality, as described in our{" "}
-        <button
-          onClick={() => setCurrentPage('privacy')}
+        <Link
+          href="/privacy-policy"
           className="text-blue-400 hover:underline"
         >
           Privacy Policy
-        </button>
+        </Link>
         . By using the bot, you consent to this data collection and storage.
       </p>
       <h2 className="text-2xl font-semibold mb-3 text-purple-400">5. Disclaimers</h2>
